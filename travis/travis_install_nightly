@@ -29,6 +29,7 @@ kernel_release=$( uname -r )
 sudo apt-get install linux-headers-${kernel_release} build-essential -y
 sudo apt-get install libxml2-dev libxslt1-dev cython -y
 git clone --branch lxml-3.3.3 https://github.com/lxml/lxml
+cd xml
 python2.7 setup.py clean build --with-cython install
 ###################
 
