@@ -23,7 +23,14 @@ tar -xf odoo.tar.gz -C ${HOME}
 
 echo "Installing Python dependencies"
 sudo apt-get -qq -y install expect-dev  # provides unbuffer utility
-sudo apt-get -qq -y install python-lxml  # because pip installation is slooow
+# sudo apt-get -qq -y install python-lxml  # Commented because lxml default version on Ubuntu 14.10 is broken.
+# From source lxml
+kernel_release=$( uname -r )
+sudo apt-get install linux-headers-${kernel_release} build-essential -y
+sudo apt-get install libxml2-dev libxslt1-dev cython -y
+git clone --branch lxml-3.3.3 https://github.com/lxml/lxml
+python2.7 setup.py clean build --with-cython install
+###################
 
 # Workaround to force using system site packages (see https://github.com/Shippable/support/issues/241#issuecomment-57947925)
 rm -f $VIRTUAL_ENV/lib/python2.7/no-global-site-packages.txt
